@@ -15,13 +15,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-    {{--  jquery  --}}
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-    crossorigin="anonymous"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -47,51 +41,44 @@
             {{--  @include('display')
 @include('insert')  --}}
             <div class="d-flex p-3" >
-
-
-
-
-
-
-         <form method="POST" action="{{ url('admin/employee') }}">
+         <form method="POST" action="/update/employee/{{ $employee->id }}">
             @csrf
-
-
-
-
+            @method('PUT')
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Employee name</label>
-                <input type="text" id="edit_name" class="form-control" name="emp_name" placeholder="Employee nam">
+                <input type="text" id="name" value="{{$employee->name}}" class="form-control" name="name" placeholder="Employee nam">
             </div>
 
             <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">EPF No</label>
-                <input type="text" id="edit_no"  name="epf_no" class="form-control" placeholder="EPF No">
+                <label for="disabledTextInput" class="form-label">EPF Number</label>
+                <input type="text" id="epfno" value="{{ $employee->epfno }}"  name="epfno" class="form-control" placeholder="EPF Number">
             </div>
 
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">NIC</label>
-                <input type="text" id="edit_nic" name="nic" class="form-control" placeholder="NIC">
+                <input type="text" id="edit_nic" value="{{ $employee->nic }}" name="nic" class="form-control" placeholder="NIC">
             </div>
 
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Mobile</label>
-                <input type="text" id="edit_mobile" name="mobile" class="form-control" placeholder="Mobile">
+                <input type="text" id="edit_mobile" value="{{ $employee->mobile }}" name="mobile" class="form-control" placeholder="Mobile">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Address</label>
-                <input type="text" id="edit_address" name="address" class="form-control" placeholder="Address">
+                <input type="text" id="edit_address" value="{{ $employee->address }}" name="address" class="form-control" placeholder="Address">
             </div>
             <div class="mb-3" >
                 <label for="disabledSelect" class="form-label"> Employee Type </label>
-                <select id="disabledSelect" name="edit_employee" class="form-select">
-                    <option>Employee type</option>
+                <select id="disabledSelect" value="{{ $employee->emptype }}" name="edit_employee" class="form-select">
+                    <option>select type</option>
+                    <option>driver</option>
+                    <option>seller</option>
                 </select>
             </div>
 
 
 
-            <button type="submit" class="btn btn-outline-info" style="justify-content: flex-end;">save
+            <button type="submit" class="btn btn-outline-info" style="justify-content: flex-end;">Update
                 <i class="fa-regular fa-floppy-disk"></i>
 
             </button>
@@ -101,7 +88,7 @@
 
 
     </div>
-    @include('admin.emloyee.employeedata')
+
 
 
 </div>

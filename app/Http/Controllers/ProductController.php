@@ -13,10 +13,13 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $details=product::all();
 
-        $display=product::all();
+        return response()->json([
+            'details'=> $details,
 
-       return view('admin.product',compact('display'));
+
+        ]);
     }
 
     /**
@@ -25,7 +28,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('admin.product');
+       // return view('admin.product');
     }
 
     /**
@@ -44,7 +47,7 @@ class ProductController extends Controller
         'select'=>$request->select,
         ]);
 
-       return view('admin.product',compact('product'));
+       return redirect()->back();
 
     }
 
@@ -62,40 +65,35 @@ class ProductController extends Controller
     public function edit(product $product)
     {
         //
-        return view('admin.update',compact('product'));
+        $data=product::all();
+        return view('admin.update',['product'=>$product],['data'=>$data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, product $product)
+    public function update(Request $request, product $product,$id)
     {
         //
 
-        $product->update([
-        'product'=>$request->product,
-        'productcode'=>$request->code,
-        'newprice'=>$request->Mprice,
-        'refilprice'=>$request->Rprice,
-        'emptyprice'=>$request->Eprice,
-        'select'=>$request->select,
+        $product = product::findorFail($id);
+        $product->update($request->all());
+        return redirect('/product')->with('success','Update is success');
 
-        ]);
-
-        return $product;
+       // return $product;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(product $product)
+    public function destroy(product $product,$id)
     {
         //
-        $res=$product->delete();
-        if($res){
-            return redirect()->back()->with(['msg'=>'success']);
-        }else{
-            return redirect()->back()->with(['msg'=>'error']);
-        }
+        $product = product::findorFail($id);
+        $product->delete();
+
+
+        return redirect()->back()->with('success','Delete item success');
+
     }
 }

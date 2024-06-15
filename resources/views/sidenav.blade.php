@@ -30,20 +30,20 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="/" class="sidebar-link">
                         <i class="fa-solid fa-bolt "></i>
                         <span>Dashbord</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="product" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                    <a href="/product" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span>Product</span>
                     </a>
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Product price</a>
+                            <a href="/product" class="sidebar-link">Product price</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Product category</a>
@@ -51,16 +51,43 @@
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
                         <i class="fa-solid fa-shop"></i>
-                        <span>Purchesing Orde</span>
+                        <span>Inventory Management</span>
                     </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/inventory" class="sidebar-link">Gas inventory</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/supplier" class="sidebar-link">Supplier</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/stock" class="sidebar-link">Stock</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/inventory/report" class="sidebar-link">Report</a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
                         <i class="fa-solid fa-truck"></i>
-                        <span>Good Receive</span>
+                        <span>Order</span>
                     </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/fulfillment" class="sidebar-link">Fulfill</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/placement" class="sidebar-link">Placement</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/trackingdata" class="sidebar-link">Tracking</a>
+                        </li>
+
+                    </ul>
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">

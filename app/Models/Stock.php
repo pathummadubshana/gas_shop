@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class Stock extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'epfno',
-        'nic',
-        'mobile',
-        'address',
-        'emptype',
-
+        'product',
+        'code',
+        'pname',
+        'pprice',
+        'qty',
 
     ];
 }

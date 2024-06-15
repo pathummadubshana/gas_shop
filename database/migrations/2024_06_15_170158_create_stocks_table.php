@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('damege_returns', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
-            $table->string('name');
-            $table->string('mobile');
-            $table->string('area');
-            $table->string('address');
-            $table->string('sales');
-            $table->string('vehical');
-            $table->string('return');
             $table->string('product');
+            $table->string('code');
+            $table->string('pname');
+            $table->string('pprice');
             $table->string('qty');
             $table->timestamps();
         });
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('damege_returns');
+        Schema::dropIfExists('stocks');
     }
 };

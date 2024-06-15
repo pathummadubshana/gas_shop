@@ -53,7 +53,7 @@ class CustomerController extends Controller
             'email'=>$request->email
             ]);
 
-        redirect()->back();
+        return redirect()->back();
     }
 
     /**
@@ -70,21 +70,30 @@ class CustomerController extends Controller
     public function edit(Customer $customer)
     {
         //
+        return view('admin/customer.profileedit',['customer'=>$customer]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Customer $customer,$id)
     {
         //
+
+        $customer = Customer::findorFail($id);
+        $customer->update($request->all());
+        return redirect('/customer')->with('success','Update is success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy(Customer $customer,$id)
     {
         //
+        $customer = Customer::findorFail($id);
+        $customer->delete();
+        return redirect()->back()->with('success','Delete item success');
     }
 }

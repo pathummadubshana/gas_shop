@@ -37,121 +37,119 @@
 
             {{--  @include('display')
 @include('insert')  --}}
-            <div class="d-flex p-3" >
+            <div class="d-flex p-3">
 
 
 
 
 
 
-         <form method="POST" action="{{ url('admin/employee') }}">
-            @csrf
+                <form method="POST" action="{{ url('/employeeadd') }}">
+                    @csrf
 
 
 
 
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Employee name</label>
-                <input type="text" id="emp_name" class="form-control" name="emp_name" placeholder="Employee nam">
+                    <div class="mb-3">
+                        <label for="disabledTextInput" class="form-label">Employee name</label>
+                        <input type="text" id="emp_name" class="form-control" name="emp_name"
+                            placeholder="Employee nam">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="disabledTextInput" class="form-label">EPF Number</label>
+                        <input type="text" id="epf_no" name="epf_no" class="form-control"
+                            placeholder="EPF Number">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="disabledTextInput" class="form-label">NIC</label>
+                        <input type="text" id="nic" name="nic" class="form-control" placeholder="NIC">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="disabledTextInput" class="form-label">Mobile</label>
+                        <input type="text" id="mobile" name="mobile" class="form-control" placeholder="Mobile">
+                    </div>
+                    <div class="mb-3">
+                        <label for="disabledTextInput" class="form-label">Address</label>
+                        <input type="text" id="address" name="address" class="form-control" placeholder="Address">
+                    </div>
+                    <div class="mb-3">
+                        <label for="disabledSelect" class="form-label"> Employee Type </label>
+                        <select id="disabledSelect" name="employee" class="form-select">
+                            <option>select type</option>
+                            <option>driver</option>
+                            <option>seller</option>
+                        </select>
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-outline-info" style="justify-content: flex-end;">Add
+                        <i class="fa-regular fa-floppy-disk"></i>
+
+                    </button>
+
+
+
+
+                    </button>
+
+
+
+                </form>
+
+
+
+
+            </div>
+            <div class="d-flex p-3">
+                <table class="table table-bordered table-ligh">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">EPF</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">NIC</th>
+                            <th scope="col">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($data as $item)
+                            <tr>
+                                <td>{{ $item['id'] }}</td>
+                                <td>{{ $item['name'] }}</td>
+                                <td>{{ $item['epfno'] }}</td>
+                                <td>{{ $item['emptype'] }}</td>
+                                <td>{{ $item['nic'] }}</td>
+                                <td>
+                                    <div class="d-inline-flex">
+                                        <a class="btn btn-success edit" href="/edit/employee/{{ $item->id }}"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
+                                        <form action="/delete/employee/{{ $item->id }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="btn btn-danger  "><i
+                                                    class="fa-regular fa-trash-can "></i></button>
+                                        </form>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
             </div>
 
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">EPF No</label>
-                <input type="text" id="epf_no"  name="epf_no" class="form-control" placeholder="EPF No">
-            </div>
-
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">NIC</label>
-                <input type="text" id="nic" name="nic" class="form-control" placeholder="NIC">
-            </div>
-
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Mobile</label>
-                <input type="text" id="mobile" name="mobile" class="form-control" placeholder="Mobile">
-            </div>
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Address</label>
-                <input type="text" id="address" name="address" class="form-control" placeholder="Address">
-            </div>
-            <div class="mb-3" >
-                <label for="disabledSelect" class="form-label"> Employee Type </label>
-                <select id="disabledSelect" name="employee" class="form-select">
-                    <option>Employee type</option>
-                </select>
-            </div>
 
 
-
-            <button type="submit" class="btn btn-outline-info" style="justify-content: flex-end;">Add
-                <i class="fa-regular fa-floppy-disk"></i>
-
-            </button>
-
-
-                <button type="submit" class="btn btn-outline-info" id="update"  style="justify-content: flex-end;">Update
-                    <i class="fa-regular fa-floppy-disk"></i>
-
-                </button>
-
-
-
-        </form>
-        <!-- Modal -->
-        <div class="modal fade" id="editmodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit and update</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Employee name</label>
-                    <input type="text" id="name" class="form-control" name="name" placeholder="Employee nam">
-                </div>
-
-                <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">EPF No</label>
-                    <input type="text" id="no"  name="epf_no" class="form-control" placeholder="EPF No">
-                </div>
-
-                <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">NIC</label>
-                    <input type="text" id="nic_no" name="nic" class="form-control" placeholder="NIC">
-                </div>
-
-                <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Mobile</label>
-                    <input type="text" id="mobile_no" name="mobile" class="form-control" placeholder="Mobile">
-                </div>
-                <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Address</label>
-                    <input type="text" id="address_up" name="address" class="form-control" placeholder="Address">
-                </div>
-                <div class="mb-3" >
-                    <label for="disabledSelect" class="form-label"> Employee Type </label>
-                    <select id="Select_id" name="employee" class="form-select">
-                        <option>Employee type</option>
-                    </select>
-                </div>
-
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary update">Update</button>
-              </div>
-            </div>
-          </div>
         </div>
-
-
-
-    </div>
-    @include('admin.emloyee.employeedata')
-
-
-</div>
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Empty_;
 
 class EmployeeController extends Controller
 {
@@ -45,7 +46,7 @@ class EmployeeController extends Controller
 
             ]);
 
-        return view('admin/emloyee.employee');
+        return redirect()->back();
     }
 
     /**
@@ -59,26 +60,10 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Employee $employee,$id)
+    public function edit(Employee $employee)
     {
         //
-        $emp=Employee::find($id);
-        if($emp)
-        {
-            return response()->json([
-                'status'=>200,
-                'emp'=>$emp
-
-            ]);
-
-        }
-        else{
-            return response()->json([
-                'status'=>404,
-                'emp'=>'employee not found'
-            ]);
-        }
-
+        return view('admin.emloyee.empupdate',['employee'=>$employee]);
 
 
     }
@@ -89,28 +74,29 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee,$id)
     {
         //
-        $emp=Employee::find($id);
-        $emp->name=$request->input('name');
-        $emp->epfno=$request->input('epfno');
-        $emp->nic=$request->input('nic');
-        $emp->mobile=$request->input('mobile');
-        $emp->address=$request->input('address');
-        $emp->emptype=$request->input('emptype');
-        $emp->update();
-        //return view('admin/emloyee.employee');
+
+
+
+        $employee = Employee::findorFail($id);
+        $employee->update($request->all());
+        return redirect('/employee')->with('success','Update is success');
+
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Employee $employee,$id)
     {
         //
 
-        $emp=Employee::find($id);
-        $emp->delete();
-        return response()->json(['success'=>'Recorde has been deleted']);
+        $employee = Employee::findorFail($id);
+        $employee->delete();
+
+
+        return redirect()->back()->with('success','Delete item success');
+
        // return redirect()->back();
 
 
