@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report</title>
+    <title>Delivery routing</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -37,14 +37,14 @@
 
 
 
-         <form method="POST" action="{{ url('product') }}">
+         <form method="POST" action="{{ url('/delivery/routin/store') }}">
             @csrf
 
 
 
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Product</label>
-                <input type="text" id="product" class="form-control" name="product" placeholder="Product">
+                <input type="text" id="product" value="{{ $delivery->product }}" class="form-control" name="product" placeholder="Product">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Delivery area</label>
@@ -52,22 +52,17 @@
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Vehical Number</label>
-                <input type="text" id="newprice"  name="Mprice" class="form-control" placeholder="Vehical Number">
+                <input type="text" id="newprice"  name="vnumber" class="form-control" placeholder="Vehical Number">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Emloyee</label>
-                <input type="text" id="Refilprice" name="Rprice" class="form-control" placeholder="Emloyee">
+                <input type="text" id="Refilprice" name="emloyee" class="form-control" placeholder="Emloyee">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Mobile</label>
-                <input type="text" id="empty" name="Eprice" class="form-control" placeholder="Mobile">
+                <input type="text" id="empty" name="mobile" class="form-control" placeholder="Mobile">
             </div>
-            <div class="mb-3">
-                <label for="disabledSelect" class="form-label"> select </label>
-                <select id="disabledSelect" name="select" class="form-select">
-                    <option>Disabled select</option>
-                </select>
-            </div>
+
 
             <button type="submit" class="btn btn-outline-info" style="justify-content: flex-end;">Add
                 <i class="fa-regular fa-floppy-disk"></i>
@@ -75,6 +70,7 @@
             </button>
 
         </form>
+
 
         <div class="d-flex p-3">
         <table class="table table-bordered table-ligh">
@@ -91,6 +87,27 @@
             </thead>
             <tbody>
 
+                @foreach ($data as $item)
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->product }}</td>
+                    <td>{{ $item->area }}</td>
+                    <td>{{ $item->vnumber }}</td>
+                    <td>{{ $item->emloyee }}</td>
+                    <td>{{ $item->mobile }}</td>
+                    <td>
+                        <form action="/delivery/route/delete/{{ $item->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger  "><i
+                                    class="fa-regular fa-trash-can "></i></button>
+                        </form>
+                    </td>
+                </tr>
+
+                @endforeach
+
 
 
 
@@ -105,62 +122,6 @@
 
 
 </div>
-{{--  <script>
-    $(document).ready(function(){
-        index();
-        function index(){
-            $.ajax({
-                type:"GET",
-                url:"inventory/index",
-                dataType:"json",
-                success:function(response){
-                   // console.log(response.details);
-
-                   $.each(response.details,function(key,data){
-                    $('tbody').append(
-                        `<tr>\
-                            <th class="custom_id" >`+data.id+`</th>\
-                            <td>`+data.product+`</td>\
-                            <td>`+data.productcode+`</td>\
-                            <td>`+data.newprice+`</td>\
-                            <td>`+data.refilprice+`</td>\
-                            <td>`+data.emptyprice+`</td>\
-
-
-                            <td>
-                                <a class="btn btn-success profile" ><i class="fa-regular fa-user"></i></a>
-                               <a class="btn btn-danger delete"   > <i class="fa-regular fa-trash-can"></i></a>
-                               <a class="btn btn-info bille" ><i class="fa-light fa-file-invoice"></i></a>
-
-                            </td>\
-
-
-
-
-
-                        </tr>`
-                    );
-
-                   });
-
-                }
-
-            });
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-});
-</script>  --}}
 
 
 

@@ -158,7 +158,7 @@
                                         <button type="submit" class="btn btn-danger  "> <i class="fa-regular fa-trash-can"></i></button>
 
                                 </form>
-                                    <a class="btn btn-info bille"><i class="fa-light fa-file-invoice"></i></a>
+                                    <a class="btn btn-info bille" href="/placement"><i class="fa-solid fa-sort"></i></a>
                                 </div>
                                 </td>
                             </tr>

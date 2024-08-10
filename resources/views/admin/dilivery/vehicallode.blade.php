@@ -37,7 +37,7 @@
 
 
 
-         <form method="POST" action="{{ url('product') }}">
+         <form method="POST" action="{{ url('store/delivery') }}">
             @csrf
 
 
@@ -57,18 +57,13 @@
 
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Qty</label>
-                <input type="text" id="empty" name="Eprice" class="form-control" placeholder="Empty Price">
+                <input type="text" id="empty" name="qty" class="form-control" placeholder="Qty">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Area</label>
-                <input type="text" id="empty" name="Eprice" class="form-control" placeholder="Empty Price">
+                <input type="text" id="empty" name="area" class="form-control" placeholder="Area">
             </div>
-            <div class="mb-3">
-                <label for="disabledSelect" class="form-label"> select </label>
-                <select id="disabledSelect" name="select" class="form-select">
-                    <option>Disabled select</option>
-                </select>
-            </div>
+
 
             <button type="submit" class="btn btn-outline-info" style="justify-content: flex-end;">Add
                 <i class="fa-regular fa-floppy-disk"></i>
@@ -83,12 +78,31 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Product</th>
+                    <th scope="col">Product code</th>
                     <th scope="col">New price</th>
+                    <th scope="col">Qty</th>
                     <th scope="col">Area</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($data as $item)
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->product }}</td>
+                    <td>{{ $item->code }}</td>
+                    <td>{{ $item->Mprice }}</td>
+                    <td>{{ $item->qty }}</td>
+                    <td>{{ $item->area }}</td>
+                    <td>
+                        <a href="/dilivery/return/{{ $item->id }}" class="btn btn-warning"   ><i  class="fa-solid fa-right-left"></i></a>
+                        <a href="/dilivery/traking/{{ $item->id }}" class="btn btn-primary"><i class="fa-solid fa-plane-departure"></i></a>
+                        <a href="/dilivery/routing/{{ $item->id }}" class="btn btn-secondary"><i class="fa-solid fa-route"></i></a>
+                        <a href="/delivery/sheduling" class="btn btn-info"><i class="fa-solid fa-calendar-days"></i></a>
+                    </td>
+                </tr>
+
+                @endforeach
 
 
 

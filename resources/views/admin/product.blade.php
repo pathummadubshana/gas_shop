@@ -120,7 +120,7 @@
                                                         class="fa-regular fa-trash-can "></i></button>
                                             </form>
 
-                                            <a class="btn btn-info deleteProduct"><i class="fa-solid fa-file-invoice"></i></a>
+                                            <a class="btn btn-info deleteProduct" href=""><i class="fa-solid fa-file-invoice"></i></a>
 
                                     </td>
                                 </div>

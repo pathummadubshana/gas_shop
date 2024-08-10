@@ -4,16 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-   
-    public function index()
+
+    public function bill($id)
     {
         //
+
+
+
+        $item = Order::findOrFail($id);
+      $p=$item->price;
+      $q=$item->qty;
+
+      $price=intval($p);
+      $qty=intval($q);
+
+      $total=$price * $qty;
+
+
+
+        return response()->json($item);
+
     }
 
     /**
@@ -35,6 +52,7 @@ class OrderController extends Controller
             'product'=>$request->product,
             'code'=>$request->code,
             'qty'=>$request->qty,
+            'price'=>$request->price,
             'name'=>$request->name,
             'address'=>$request->address,
             'mobile'=>$request->mobile,

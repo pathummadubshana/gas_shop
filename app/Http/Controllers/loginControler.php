@@ -10,7 +10,7 @@ class loginControler extends Controller
     public function login(Request $request){
 
        if($request->username=="admin" && $request->password=="admin"){
-        return view('admin.dashbord');
+        return redirect('/dashbord');
        }
 
     }

@@ -37,36 +37,35 @@
 
 
 
-         <form method="POST" action="{{ url('product') }}">
+         <form method="POST" id="myform" action="{{ url('/dilivery/return/update') }}">
             @csrf
+
 
 
 
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Product</label>
-                <input type="text" id="product" class="form-control" name="product" placeholder="Product">
+                <input type="text" id="product" class="form-control" name="product" value="{{ $delivery->product}}" placeholder="Product">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Product code</label>
-                <input type="text" id="code" class="form-control" name="code" placeholder="Product code">
+                <input type="text" id="code" class="form-control" value="{{ $delivery->code}}"  name="code" placeholder="Product code">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">New price</label>
-                <input type="text" id="newprice"  name="Mprice" class="form-control" placeholder="New price">
+                <input type="text" id="newprice"  name="Mprice"  value="{{ $delivery->Mprice}}" class="form-control" placeholder="New price">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Qty</label>
-                <input type="text" id="Refilprice" name="Rprice" class="form-control" placeholder="Qty">
+                <input type="text" id="qty" name="qty" class="form-control" placeholder="Qty">
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Customer name</label>
-                <input type="text" id="empty" name="Eprice" class="form-control" placeholder="Customer name">
+                <input type="text" id="empty" name="cname" class="form-control" placeholder="Customer name">
             </div>
             <div class="mb-3">
-                <label for="disabledSelect" class="form-label"> select </label>
-                <select id="disabledSelect" name="select" class="form-select">
-                    <option>Disabled select</option>
-                </select>
+                <label for="disabledTextInput" class="form-label">Area</label>
+                <input type="text" id="empty" name="area" class="form-control" placeholder="Area">
             </div>
 
             <button type="submit" class="btn btn-outline-info" style="justify-content: flex-end;">Add
@@ -82,11 +81,41 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Product</th>
-                    <th scope="col">New price</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Qty</th>
                     <th scope="col">Customer name</th>
+                    <th scope="col">Area</th>
                     <th scope="col">Action</th>
                 </tr>
+
+               @foreach ($data as $item)
+               <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->product}}</td>
+                <td>{{ $item->code }}</td>
+                <td>{{ $item->Mprice }}</td>
+                <td>{{ $item->qty }}</td>
+                <td>{{ $item->cname }}</td>
+                <td>{{ $item->area}}</td>
+                <td>
+                    <div class="d-inline-flex ">
+                        
+                        <form action="/delivery/return/delete/{{ $item->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger  "><i
+                                    class="fa-regular fa-trash-can "></i></button>
+                        </form>
+
+                    </div>
+
+
+                </td>
+               </tr>
+
+               @endforeach
             </thead>
             <tbody>
 
@@ -104,6 +133,7 @@
 
 
 </div>
+
 {{--  <script>
     $(document).ready(function(){
         index();

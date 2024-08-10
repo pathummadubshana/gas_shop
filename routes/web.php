@@ -5,6 +5,8 @@ use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Models\Customer;
+use App\Models\Delivery;
+use App\Models\Deliveryshedule;
 use App\Models\Employee;
 use App\Models\Order;
 use App\Models\product;
@@ -30,10 +32,10 @@ Route::get('/register', function(){
     return view('./login/register');
 
 });
-Route::get('/dashbord', function () {
-    return view('./admin/dashbord');
-});
-;
+// Route::get('/dashbord', function () {
+//     return view('./admin/dashbord');
+// });
+Route::get('/dashbord',[App\Http\Controllers\DashbordController::class,'totalStock']);
 
 
 //product controll routes
@@ -81,7 +83,7 @@ Route::get('/vehcaltarget', function(){
 
 });
 
-Route::get('/return', function(){
+Route::get('damage/return', function(){
     return view('./admin/damage/return');
 
 });
@@ -122,12 +124,10 @@ Route::post('/stock/add',[App\Http\Controllers\StockController::class,'store']);
 
 
 
-Route::get('/report', function(){
-    return view('./admin/inventory/report');
 
-});
 
 //placemet rote
+
 Route::get('/placement', function(){
     $data=Order::all();
     return view('./admin/order/placement',['data'=>$data]);
@@ -135,6 +135,7 @@ Route::get('/placement', function(){
 
 });
 Route::post('/order/placement',[App\Http\Controllers\OrderController::class,'store']);
+Route::get('/bill/info/{id}',[App\Http\Controllers\OrderController::class,'bill']);
 
 
 //tracking routes
@@ -167,35 +168,69 @@ Route::get('/trackingdata', function(){
 
 Route::get('/fulfillment',[App\Http\Controllers\FullfillController::class,'conect']);
 
+// inventory report routs
+Route::get('/inventory/report',[App\Http\Controllers\OrderrepotController::class,'show']);
+
+
+
+//dilivery routes
+
+
+
+Route::get('/dilivery/return/{delivery}',[App\Http\Controllers\DiliveryController::class,'productreturn']);
+Route::post('/dilivery/return/update',[App\Http\Controllers\DiliveryController::class,'returnstore']);
+Route::delete('/delivery/return/delete/{id}',[App\Http\Controllers\DeliveryreturnController::class,'delete']);
 
 
 
 
-Route::get('/return', function(){
-    return view('./admin/dilivery/return');
 
-});
-Route::get('/routing', function(){
-    return view('./admin/dilivery/routing');
+Route::get('/dilivery/traking/{delivery}',[App\Http\Controllers\DeliverytrackingController::class,'index']);
+Route::post('/dilivery/track/store',[App\Http\Controllers\DeliverytrackingController::class,'store']);
+Route::get('/tracking/edit/{id}',[App\Http\Controllers\DeliverytrackingController::class,'edit']);
+Route::put('/tracking/update/{id}',[App\Http\Controllers\DeliverytrackingController::class,'update']);
+Route::delete('/dilivery/track/delete/{id}',[App\Http\Controllers\DeliverytrackingController::class,'delete']);
 
-});
-Route::get('/delivery/sheduling', function(){
-    return view('./admin/dilivery/sheduli');
 
-});
-Route::get('/traking', function(){
-    return view('./admin/dilivery/traking');
+Route::get('/dilivery/routing/{delivery}',[App\Http\Controllers\DeliveryroutController::class,'index']);
+Route::post('/delivery/routin/store',[App\Http\Controllers\DeliveryroutController::class,'store']);
+Route::delete('/delivery/route/delete/{id}',[App\Http\Controllers\DeliveryroutController::class,'delete']);
 
-});
+
+
+
+
+
+
+
+Route::get('/delivery/sheduling',[App\Http\Controllers\DeliverysheduleController::class,'index']);
+Route::post('sheduling/store',[App\Http\Controllers\DeliverysheduleController::class,'store']);
+Route::get('/Sheduling/edit/{id}',[App\Http\Controllers\DeliverysheduleController::class,'edit']);
+Route::put('/sheduling/update/{id}',[App\Http\Controllers\DeliverysheduleController::class,'update']);
+Route::delete('/shedule/delete/{id}',[App\Http\Controllers\DeliverysheduleController::class,'delete']);
+
+
+
+
+
+
 Route::get('/delivery/lode', function(){
-    return view('./admin/dilivery/vehicallode');
+    $data=Delivery::all();
+    return view('./admin/dilivery/vehicallode',['data'=>$data]);
 
 });
+Route::post('store/delivery',[App\Http\Controllers\DiliveryController::class,'store']);
+
+
+
 
 Route::get('/bill', function(){
     return view('./admin/billing/billing');
 
 });
+
+Route::get('/bill',[App\Http\Controllers\BillController::class,'search']);
+Route::get('/bill/data/{id}',[App\Http\Controllers\BillController::class,'display']);
 
 Route::get('/invoice', function(){
 
@@ -213,7 +248,7 @@ Route::get('/customer/report', function(){
     return view('./admin/reporte/customer');
 
 });
-Route::get('/inventory/report', function(){
+Route::get('/report/inventory', function(){
     return view('./admin/reporte/inventory');
 
 });

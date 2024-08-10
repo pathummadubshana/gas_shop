@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bill</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
      crossorigin="anonymous"></script>
@@ -35,20 +51,60 @@
         <div class="d-inline-flex">
             @include('sidenav')
 
+            <div class="container-fluid">
+
+
+                <div class="d-flex flex-row">
+                    <div class="p-2">
+                        <form action="/bill">
+                            <div class="row">
+                              <div class="col">
+                                <input type="text" class="form-control" name="search" placeholder="search item">
+                              </div>
+
+                              <div class="col">
+                                <button type="submit" class="btn btn-primary mb-2">Search</button>
+                              </div>
+                            </div>
+                          </form>
+                    </div>
+
+                  </div>
+
+
             <div class="d-flex p-3">
+
                 <table class="table table-bordered table-ligh">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Item</th>
                             <th scope="col">qty</th>
-                            <th scope="col">Type</th>
                             <th scope="col">price</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Action</th>
 
                         </tr>
                     </thead>
+
                     <tbody >
+
+                        @foreach ($product as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->product }}</td>
+                            <td>{{ $item->qty }}</td>
+                            <td>{{ $item->pprice }}</td>
+                            <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                            <td><button class=" invoiceModal btn btn-info deleteProduct"
+                                value="{{ $item->id }}" data-toggle="modal"
+                                data-target="#invoiceModal" data-backdrop="false"> <i
+                                    class="fa-solid fa-file-invoice"></i></button></td>
+
+
+                        </tr>
+
+                        @endforeach
 
 
 
@@ -60,161 +116,152 @@
 
             </div>
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="invoice-title">
-                            <h2>Invoice</h2><h3 class="pull-right">Order # 12345</h3>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <address>
-                                <strong>Billed To:</strong><br>
-                                    John Smith<br>
-                                    1234 Main<br>
-                                    Apt. 4B<br>
-                                    Springfield, ST 54321
-                                </address>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <address>
-                                <strong>Shipped To:</strong><br>
-                                    Jane Smith<br>
-                                    1234 Main<br>
-                                    Apt. 4B<br>
-                                    Springfield, ST 54321
-                                </address>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <address>
-                                    <strong>Payment Method:</strong><br>
-                                    Visa ending **** 4242<br>
-                                    jsmith@email.com
-                                </address>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <address>
-                                    <strong>Order Date:</strong><br>
-                                    March 7, 2014<br><br>
-                                </address>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <script>
+                $(document).ready(function() {
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><strong>Order summary</strong></h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <td><strong>Item</strong></td>
-                                                <td class="text-center"><strong>Price</strong></td>
-                                                <td class="text-center"><strong>Quantity</strong></td>
-                                                <td class="text-right"><strong>Totals</strong></td>
-                                            </tr>
-                                        </thead>
-                                        {{--  <tbody>
-                                            <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                                            <tr>
-                                                <td>BS-200</td>
-                                                <td class="text-center">$10.99</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-right">$10.99</td>
-                                            </tr>
-                                            <tr>
-                                                <td>BS-400</td>
-                                                <td class="text-center">$20.00</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-right">$60.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>BS-1000</td>
-                                                <td class="text-center">$600.00</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-right">$600.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="thick-line"></td>
-                                                <td class="thick-line"></td>
-                                                <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                                                <td class="thick-line text-right">$670.99</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="no-line"></td>
-                                                <td class="no-line"></td>
-                                                <td class="no-line text-center"><strong>Shipping</strong></td>
-                                                <td class="no-line text-right">$15</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="no-line"></td>
-                                                <td class="no-line"></td>
-                                                <td class="no-line text-center"><strong>Total</strong></td>
-                                                <td class="no-line text-right">$685.99</td>
-                                            </tr>
-                                        </tbody>  --}}
-                                    </table>
+                    $(document).on('click', '.invoiceModal', function(e) {
+                        e.preventDefault();
+                        var data_id = $(this).val();
+
+
+
+                        $.ajax({
+                            type: "GET",
+                            url: '/bill/data/' + data_id,
+
+
+
+
+                            success: function(response) {
+
+                               
+
+                                $('#custom_name').text(response.product);
+                                $('#date').text(response.created_at);
+                                $('#item').text(response.product);
+                                $('#qty').text(response.qty);
+                                $('#price').text("Rs:" + response.pprice);
+
+
+                                var p = response.pprice;
+                                var q = response.qty;
+
+                                var total = 0;
+                                total = p * q;
+
+
+                                $('#total').text("Rs:" + total);
+                                $('#subtotal').text("Rs:" + total);
+                                $('#final').text("Rs:" + total);
+
+
+
+
+
+
+
+                                $('#myModal').modal('show');
+
+                            }
+
+                        });
+
+
+                    });
+
+
+
+
+
+
+                });
+            </script>
+
+            <!-- Modal Invoice HTML -->
+            <div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="invoiceModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="invoiceModalLabel">Invoice </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Bill To:</h6>
+                                        <p id="custom_name"></p>
+                                        <p id="address"></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Invoice Date:</h6>
+                                        <p id="date"  ></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                    <td id="item"></td>
+                                                    <td id="qty"></td>
+                                                    <td id="price"></td>
+                                                    <td id="total"></td>
+                                                </tr>
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="3">Subtotal:</th>
+                                                    <td id="subtotal"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th colspan="3">Total:</th>
+                                                    <td id="final"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary"  id="print-btn">Download PDF</button>
+                        </div>
                     </div>
                 </div>
-            </div>.
-        </div>
+            </div>
 
 
+            <script >
+                $(document).ready(function() {
+                    $('#print-btn').on('click', function() {
+                      var modalBody = $('#invoiceModal .modal-body')[0];
+                      var printContent = modalBody.innerHTML;
+                      var printWindow = window.open('', '_blank');
+                      //printWindow.document.write('<html><head><title>Modal Data</title></head><body>');
+                      printWindow.document.write(printContent);
+                      //printWindow.document.write('</body></html>');
+                      printWindow.print();
+                      printWindow.close();
 
-    </div>
-
-
-    <script>
-        $(document).ready(function(){
-            index();
-            function index(){
-                $.ajax({
-                    type:"GET",
-                    url:"inventory/index",
-                    dataType:"json",
-                    success:function(response){
-                       // console.log(response.details);
-
-                       $.each(response.details,function(key,data){
-                        $('tbody').append(
-                            `<tr>\
-                                <th class="custom_id" >`+data.id+`</th>\
-                                <td>`+data.product+`</td>\
-                                <td>`+data.product+`</td>\
-                                <td>`+data.product+`</td>\
-                                <td>`+data.Mprice+`</td>\
-
-                                <td>
-                                    <a class="btn btn-success profile" ><i class="fa-regular fa-user"></i></a>
-                                   <a class="btn btn-danger delete"   > <i class="fa-regular fa-trash-can"></i></a>
-                                   <a class="btn btn-info bille" ><i class="fa-solid fa-file-invoice"></i></a>
-
-                                </td>\
-
-
-
-
-
-                            </tr>`
-                        );
-
-                       });
-
-                    }
-
-                });
-
-            }
+                    });
+                  });
+            </script>
 
 
 
@@ -222,12 +269,6 @@
 
 
 
-
-
-
-
-    });
-    </script>
 
 
 

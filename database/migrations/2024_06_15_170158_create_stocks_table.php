@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('pname');
             $table->string('pprice');
             $table->string('qty');
+            //$table->integer('orders_id');
             $table->timestamps();
         });
     }

@@ -36,7 +36,7 @@
 
 
 
-
+{{--
          <form method="POST" action="{{ url('product') }}">
             @csrf
 
@@ -74,7 +74,7 @@
 
             </button>
 
-        </form>
+        </form>  --}}
 
         <div class="d-flex p-3">
         <table class="table table-bordered table-ligh">
@@ -82,14 +82,23 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Product</th>
-                    <th scope="col">Category</th>
                     <th scope="col">New price</th>
-                    <th scope="col">Refil price</th>
-                    <th scope="col">Empty price</th>
+                    <th scope="col">Qty</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($data as $item)
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->product }}</td>
+                    <td>{{ $item->pprice }}</td>
+                    <td>{{ $item->qty }}</td>
+
+                </tr>
+
+
+                @endforeach
 
 
 

@@ -37,7 +37,7 @@
 
 
 
-         <form method="POST" action="{{ url('product') }}">
+         {{--  <form method="POST" action="{{ url('product') }}">
             @csrf
 
 
@@ -74,7 +74,7 @@
 
             </button>
 
-        </form>
+        </form>  --}}
 
         <div class="d-flex p-3">
         <table class="table table-bordered table-ligh">
